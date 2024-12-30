@@ -2,6 +2,9 @@ package br.com.JobManagement.job_management.candidate.Entities;
 
 import java.util.UUID;
 
+import lombok.Data;
+
+@Data
 public class CandidateEntity {
 
     private UUID id;
