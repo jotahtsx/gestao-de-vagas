@@ -38,6 +38,4 @@ public class CandidateEntity {
 
     @CreationTimestamp
     private LocalDateTime createdAt;
-
-
 }
