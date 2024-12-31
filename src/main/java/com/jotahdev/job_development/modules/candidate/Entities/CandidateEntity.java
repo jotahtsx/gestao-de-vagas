@@ -4,7 +4,6 @@ import java.util.UUID;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
@@ -21,7 +20,7 @@ public class CandidateEntity {
 
     @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#\\$%^&\\*])(?=\\S+$).{8,16}$", message = "A senha deve ter entre 8 e 16 caracteres, incluindo pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.")
     private String password;
-    
+
     private String description;
     private String curriculum;
 
