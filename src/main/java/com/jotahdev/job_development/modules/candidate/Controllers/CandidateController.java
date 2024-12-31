@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jotahdev.job_development.modules.candidate.Entities.CandidateEntity;
+import com.jotahdev.job_development.modules.candidate.Exceptions.CandidateFoundException;
 import com.jotahdev.job_development.modules.candidate.Repositories.CandidateRepository;
 
 import jakarta.validation.Valid;
@@ -20,7 +21,11 @@ public class CandidateController {
 
     @PostMapping("/")
     public CandidateEntity create(@Valid @RequestBody CandidateEntity candidateEntity) {
-        return this.candidateRepository.save(candidateEntity);
+        candidateRepository.findByUsernameOrEmail(candidateEntity.getUsername(), candidateEntity.getEmail())
+            .ifPresent(user -> {
+                throw new CandidateFoundException();
+            });
+        return candidateRepository.save(candidateEntity);
     }
 
 }
