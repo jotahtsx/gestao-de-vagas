@@ -1,4 +1,4 @@
-package com.jotahdev.job_development.modules.candidate.Controllers;
+package com.jotahdev.job_development.Exceptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,25 +11,24 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.jotahdev.job_development.modules.candidate.Entities.CandidateErrorMessage;
-
 @ControllerAdvice
-public class ExceptionHandlerController {
+public class CandidateExceptionHandlerController {
 
-    private MessageSource messageSource;
-
-    public ExceptionHandlerController(MessageSource message) {
+    public CandidateExceptionHandlerController(MessageSource message) {
         this.messageSource = message;
     }
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<List<CandidateErrorMessage>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    private MessageSource messageSource;
 
-        List<CandidateErrorMessage> dto = new ArrayList<>();
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<List<ErrorMessageDTO>> handleMethodArgumentNotValidException(
+            MethodArgumentNotValidException e) {
+        List<ErrorMessageDTO> dto = new ArrayList<>();
 
         e.getBindingResult().getFieldErrors().forEach(err -> {
             String message = messageSource.getMessage(err, LocaleContextHolder.getLocale());
-            CandidateErrorMessage error = new CandidateErrorMessage(message, err.getField());
+
+            ErrorMessageDTO error = new ErrorMessageDTO(message, err.getField());
             dto.add(error);
         });
 

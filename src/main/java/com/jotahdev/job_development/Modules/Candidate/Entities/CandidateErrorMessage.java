@@ -1,4 +1,4 @@
-package com.jotahdev.job_development.modules.candidate.Entities;
+package com.jotahdev.job_development.Modules.Candidate.Entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

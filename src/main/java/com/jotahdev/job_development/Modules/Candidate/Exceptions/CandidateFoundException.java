@@ -1,4 +1,4 @@
-package com.jotahdev.job_development.modules.candidate.Exceptions;
+package com.jotahdev.job_development.Modules.Candidate.Exceptions;
 
 public class CandidateFoundException extends RuntimeException {
     public CandidateFoundException() {
