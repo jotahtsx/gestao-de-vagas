@@ -15,6 +15,20 @@ public class CreateCompanyUseCase {
 
     public CompanyEntity execute(CompanyEntity companyEntity) {
 
+        if (companyRepository.existsByUsername(companyEntity.getUsername())) {
+            throw new RuntimeException(
+                    "Nome de usuário da empresa já cadastrado no sistema. Verifique as informações e tente novamente.");
+        }
+
+        if (companyRepository.existsByEmail(companyEntity.getEmail())) {
+            throw new RuntimeException(
+                    "Email da empresa já cadastrado no sistema. Verifique as informações e tente novamente.");
+        }
+
+        if (companyRepository.existsByDocument(companyEntity.getDocument())) {
+            throw new RuntimeException("CNPJ já cadastrado no sistema. Verifique as informações e tente novamente.");
+        }
+
         this.companyRepository.findByUsernameOrEmail(companyEntity.getUsername(), companyEntity.getEmail())
                 .ifPresent((user) -> {
                     throw new UserFoundException();

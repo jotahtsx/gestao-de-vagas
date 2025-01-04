@@ -10,19 +10,21 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jotahdev.job_development.Modules.Company.Entities.CompanyEntity;
 import com.jotahdev.job_development.Modules.Company.UseCases.CreateCompanyUseCase;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/empresa")
 public class CompanyController {
-    
+
     @Autowired
     private CreateCompanyUseCase createCompanyUseCase;
 
     @PostMapping("/")
-    public ResponseEntity<Object> create(@RequestBody CompanyEntity companyEntity) {
+    public ResponseEntity<Object> create(@Valid @RequestBody CompanyEntity companyEntity) {
         try {
             var result = this.createCompanyUseCase.execute(companyEntity);
             return ResponseEntity.ok().body(result);
-        }catch(Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
