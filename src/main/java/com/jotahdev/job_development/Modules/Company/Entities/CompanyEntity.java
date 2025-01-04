@@ -1,4 +1,4 @@
-package com.jotahdev.job_development.Modules.Candidate.Entities;
+package com.jotahdev.job_development.Modules.Company.Entities;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -13,15 +13,13 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
+@Entity(name = "companies")
 @Data
-@Entity(name = "candidates")
-public class CandidateEntity {
+public class CompanyEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-
-    private String name;
 
     @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "O nome de usuário deve conter apenas letras, números e underscores. Não é permitido o uso de espaços ou caracteres especiais, como acentos ou símbolos.")
     private String username;
@@ -32,7 +30,14 @@ public class CandidateEntity {
     @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#\\$%^&\\*])(?=\\S+$).{8,16}$", message = "A senha deve ter entre 8 e 16 caracteres, incluindo pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.")
     private String password;
 
-    private String resume;
+    @Pattern(regexp = "^(http://|https://).*", message = "A URL deve começar com http:// ou https://")
+    private String url;
+
+    @Pattern(regexp = "^[0-9]{14}$", message = "O CNPJ deve conter exatamente 14 dígitos numéricos.")
+    private String document;
+    
+    private String name;
+    private String description;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
