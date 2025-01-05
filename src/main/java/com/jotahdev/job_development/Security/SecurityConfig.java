@@ -15,6 +15,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/candidato/", "/empresa/").permitAll() // Dá o acesso as duas rotas
+                        .requestMatchers("/auth/empresa").permitAll()
                         .anyRequest().authenticated() // Exige autenticação para qualquer outra rota
                 );
         return http.build();
