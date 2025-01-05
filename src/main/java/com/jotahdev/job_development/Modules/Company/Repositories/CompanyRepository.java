@@ -14,4 +14,5 @@ public interface CompanyRepository extends JpaRepository<CompanyEntity, UUID> {
     boolean existsByDocument(String document);
 
     Optional<CompanyEntity> findByUsernameOrEmail(String username, String email);
+    CompanyEntity findByUsername(String username);
 }
