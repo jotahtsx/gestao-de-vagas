@@ -26,21 +26,19 @@ public class AuthCompanyUseCase {
     private PasswordEncoder passwordEncoder;
 
     public String execute(AuthCompanyDTO authCompanyDTO) throws AuthenticationException {
-        var company = this.companyRepository.findByUsername(authCompanyDTO.getUsername()).orElseThrow(
-                () -> {
-                    throw new UsernameNotFoundException("Empresa não encontrada");
-                });
-        var passwordMatches = this.passwordEncoder.matches(authCompanyDTO.getPassword(), company.getPassword());
+        var company = companyRepository.findByUsername(authCompanyDTO.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException(
+                        "Usuário não encontrado. Verifique o nome de usuário e tente novamente."));
 
+        var passwordMatches = passwordEncoder.matches(authCompanyDTO.getPassword(), company.getPassword());
         if (!passwordMatches) {
-            throw new AuthenticationException();
+            throw new AuthenticationException("Senha incorreta. Verifique e tente novamente.");
         }
 
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
-        var token = JWT.create().withIssuer("javagas")
+        return JWT.create()
+                .withIssuer("javagas")
                 .withSubject(company.getId().toString())
                 .sign(algorithm);
-        return token;
-
     }
 }
