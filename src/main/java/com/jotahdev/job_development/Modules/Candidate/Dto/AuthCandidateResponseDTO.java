@@ -1,4 +1,4 @@
-package com.jotahdev.job_development.Modules.Candidate.UseCases;
+package com.jotahdev.job_development.Modules.Candidate.Dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -23,6 +23,7 @@ public class CandidateEntity {
     private String email;
     private String password;
     private String resume;
+    private String description;
     @CreationTimestamp
     private LocalDateTime createdAt;
 }

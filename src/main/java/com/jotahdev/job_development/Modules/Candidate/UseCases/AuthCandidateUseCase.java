@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.jotahdev.job_development.Modules.Candidate.Dto.AuthCandidateRequestDTO;
+import com.jotahdev.job_development.Modules.Candidate.Dto.AuthCandidateResponseDTO;
 import com.jotahdev.job_development.Modules.Candidate.Repositories.CandidateRepository;
 
 @Service
