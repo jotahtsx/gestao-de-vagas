@@ -21,6 +21,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/candidato/", "/empresa/").permitAll() // Dá o acesso as duas rotas
                         .requestMatchers("/auth/empresa").permitAll()
+                        .requestMatchers("/candidato/auth").permitAll()
                         .anyRequest().authenticated() // Exige autenticação para qualquer outra rota
                 )
                 .addFilterBefore(securityFilter, BasicAuthenticationFilter.class);
