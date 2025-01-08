@@ -17,13 +17,13 @@ import com.jotahdev.job_development.Modules.Company.UseCases.AuthCompanyUseCase;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/empresa")
 public class AuthCompanyController {
 
     @Autowired
     private AuthCompanyUseCase authCompanyUseCase;
 
-    @PostMapping("/empresa")
+    @PostMapping("/auth")
     public ResponseEntity<Object> create(@Valid @RequestBody AuthCompanyDTO authCompanyDTO) {
         try {
             var result = authCompanyUseCase.execute(authCompanyDTO);

@@ -23,12 +23,12 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/candidato/", "/empresa/").permitAll() // Dá o acesso as duas rotas
-                        .requestMatchers("/auth/empresa").permitAll()
+                        .requestMatchers("/empresa/auth").permitAll()
                         .requestMatchers("/candidato/auth").permitAll()
                         .anyRequest().authenticated() // Exige autenticação para qualquer outra rota
                 )
-                .addFilterBefore(securityFilter, BasicAuthenticationFilter.class)
-                .addFilterBefore(securityCandidateFilter, BasicAuthenticationFilter.class);
+                .addFilterBefore(securityCandidateFilter, BasicAuthenticationFilter.class)
+                .addFilterBefore(securityFilter, BasicAuthenticationFilter.class);
         return http.build();
     }
 
