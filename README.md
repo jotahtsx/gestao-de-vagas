@@ -115,5 +115,5 @@ Este projeto está licenciado sob a [licença MIT](LICENSE).
 
 ## Autor
 
-Desenvolvido por [JotahDev](https://github.com/jotahdev).
+Desenvolvido por [João Manoel](https://github.com/jotahdev).
 
