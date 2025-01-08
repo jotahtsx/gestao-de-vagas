@@ -21,6 +21,32 @@ cd job-development
 
 ### Configurar o Banco de Dados
 
+Se você está utilizando o Docker, siga os passos abaixo para configurar o banco de dados:
+
+1. Certifique-se de que o Docker está instalado e em execução.
+2. Suba o container do PostgreSQL utilizando o arquivo `docker-compose.yml`:
+
+```yaml
+services:
+  postgres:
+    container_name: job-management-postgres
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=sexta
+      - POSTGRES_PASSWORD=feira
+      - POSTGRES_DB=job_management
+```
+
+3. Inicie o serviço:
+
+```bash
+docker-compose up -d
+```
+
+Se você não estiver utilizando Docker:
+
 1. Certifique-se de que o PostgreSQL está instalado e em execução.
 2. Crie um banco de dados para o projeto:
 
@@ -89,5 +115,5 @@ Este projeto está licenciado sob a [licença MIT](LICENSE).
 
 ## Autor
 
-Desenvolvido por [João Manoel](https://github.com/jotahdev).
+Desenvolvido por [JotahDev](https://github.com/jotahdev).
 
