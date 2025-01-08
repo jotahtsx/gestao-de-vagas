@@ -48,7 +48,7 @@ public class AuthCandidateUseCase {
         var expiresIn = Instant.now().plus(Duration.ofMinutes(10));
         var token = JWT.create()
                 .withIssuer("javagas")
-                .withClaim("roles", Arrays.asList("candidato"))
+                .withClaim("roles", Arrays.asList("CANDIDATO"))
                 .withSubject(candidate.getId().toString())
                 .withExpiresAt(expiresIn)
                 .sign(algorithm);
