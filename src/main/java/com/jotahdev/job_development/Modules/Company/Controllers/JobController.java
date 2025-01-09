@@ -13,6 +13,12 @@ import com.jotahdev.job_development.Modules.Company.Dto.CreateJobDTO;
 import com.jotahdev.job_development.Modules.Company.Entities.JobEntity;
 import com.jotahdev.job_development.Modules.Company.UseCases.CreateJobUseCase;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
@@ -25,15 +31,21 @@ public class JobController {
 
     @PostMapping("/")
     @PreAuthorize("hasRole('EMPRESA')")
+    @Tag(name = "Vagas", description = "Informações de vagas")
+    @Operation(summary = "Cadastro de uma nova vaga", description = "Função responsável por realizar o cadastro de uma nova vaga")
+    @ApiResponse(responseCode = "200", content = {
+            @Content(schema = @Schema(implementation = JobEntity.class))
+    })
+    @SecurityRequirement(name = "jwt_auth")
     public JobEntity create(@Valid @RequestBody CreateJobDTO createJobDTO, HttpServletRequest request) {
         var companyId = request.getAttribute("company_id");
 
         var jobEntity = JobEntity.builder()
-        .benefits(createJobDTO.getBenefits())
-        .companyId(UUID.fromString(companyId.toString()))
-        .description(createJobDTO.getDescription())
-        .level(createJobDTO.getLevel())
-        .build();
+                .benefits(createJobDTO.getBenefits())
+                .companyId(UUID.fromString(companyId.toString()))
+                .description(createJobDTO.getDescription())
+                .level(createJobDTO.getLevel())
+                .build();
 
         return this.createJobUseCase.execute(jobEntity);
     }
