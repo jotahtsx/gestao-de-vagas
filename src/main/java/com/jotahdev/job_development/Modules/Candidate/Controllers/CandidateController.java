@@ -18,6 +18,13 @@ import com.jotahdev.job_development.Modules.Candidate.UseCases.ListAllJobsByFilt
 import com.jotahdev.job_development.Modules.Candidate.UseCases.ProfileCandidateCase;
 import com.jotahdev.job_development.Modules.Company.Entities.JobEntity;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
@@ -60,6 +67,15 @@ public class CandidateController {
 
     @GetMapping("/vaga")
     @PreAuthorize("hasRole('CANDIDATO')")
+    @Tag(name = "Candidato", description = "Informações do candidato")
+    @Operation(summary = "Listagem de vagas disponíveis para o candidato", description = "Função responsável por listar todas as vagas disponíveis baseadas no filtro")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", content = {
+            @Content(
+                array = @ArraySchema(schema = @Schema(implementation = JobEntity.class))
+            )
+        })
+    })
     public List<JobEntity> findJobByFilter(@RequestParam String filter) {
         return this.ListAllJobsByFilterUseCase.execute(filter);
     }
