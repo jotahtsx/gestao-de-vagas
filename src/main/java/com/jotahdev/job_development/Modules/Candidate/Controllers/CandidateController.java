@@ -1,5 +1,6 @@
 package com.jotahdev.job_development.Modules.Candidate.Controllers;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.jotahdev.job_development.Modules.Candidate.Entities.CandidateEntity;
 import com.jotahdev.job_development.Modules.Candidate.UseCases.CreateCandidateUseCase;
+import com.jotahdev.job_development.Modules.Candidate.UseCases.ListAllJobsByFilterUseCase;
 import com.jotahdev.job_development.Modules.Candidate.UseCases.ProfileCandidateCase;
+import com.jotahdev.job_development.Modules.Company.Entities.JobEntity;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -26,6 +30,9 @@ public class CandidateController {
 
     @Autowired
     private ProfileCandidateCase profileCandidateCase;
+
+    @Autowired
+    private ListAllJobsByFilterUseCase ListAllJobsByFilterUseCase;
 
     @PostMapping("/")
     public ResponseEntity<Object> create(@Valid @RequestBody CandidateEntity candidateEntity) {
@@ -49,5 +56,11 @@ public class CandidateController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @GetMapping("/vaga")
+    @PreAuthorize("hasRole('CANDIDATO')")
+    public List<JobEntity> findJobByFilter(@RequestParam String filter) {
+        return this.ListAllJobsByFilterUseCase.execute(filter);
     }
 }

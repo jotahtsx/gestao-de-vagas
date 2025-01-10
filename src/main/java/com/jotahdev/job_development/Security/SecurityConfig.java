@@ -28,13 +28,11 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable())
+        http.csrf(csrf -> csrf.disable()) // Desativa CSRF
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/candidato/", "/empresa/").permitAll() // Dá o acesso as duas rotas
-                        .requestMatchers("/empresa/auth").permitAll()
-                        .requestMatchers("/candidato/auth").permitAll()
-                        .requestMatchers(SWAGGER_LIST).permitAll()
-                        .anyRequest().authenticated() // Exige autenticação para qualquer outra rota
+                        .requestMatchers(SWAGGER_LIST).permitAll() // Libera as rotas do Swagger
+                        .requestMatchers("/empresa/auth", "/candidato/auth").permitAll() // Rotas públicas
+                        .anyRequest().authenticated() // Exige autenticação para outras rotas
                 )
                 .addFilterBefore(securityCandidateFilter, BasicAuthenticationFilter.class)
                 .addFilterBefore(securityFilter, BasicAuthenticationFilter.class);
