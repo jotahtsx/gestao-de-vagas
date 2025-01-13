@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.jotahdev.job_development.Modules.Candidate.Dto.ProfileCandidadeResponseDTO;
 import com.jotahdev.job_development.Modules.Candidate.Entities.CandidateEntity;
 import com.jotahdev.job_development.Modules.Candidate.UseCases.CreateCandidateUseCase;
 import com.jotahdev.job_development.Modules.Candidate.UseCases.ListAllJobsByFilterUseCase;
@@ -31,6 +33,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/candidato")
+@Tag(name = "Candidato", description = "Informações do candidato")
 public class CandidateController {
 
     @Autowired
@@ -54,6 +57,14 @@ public class CandidateController {
 
     @GetMapping("/")
     @PreAuthorize("hasRole('CANDIDATO')")
+    @Operation(summary = "Perfil do candidato", description = "Função responsável por buscar todas as informações disponíveis do perfil do candidato")
+    @SecurityRequirement(name = "jwt_auth")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = {
+                    @Content(schema = @Schema(implementation = ProfileCandidadeResponseDTO.class))
+            }),
+            @ApiResponse(responseCode = "400", description = "Usuário não encontrado")
+    })
     public ResponseEntity<Object> get(HttpServletRequest request) {
 
         var idCandidate = request.getAttribute("candidate_id");
@@ -68,14 +79,11 @@ public class CandidateController {
 
     @GetMapping("/vaga")
     @PreAuthorize("hasRole('CANDIDATO')")
-    @Tag(name = "Candidato", description = "Informações do candidato")
     @Operation(summary = "Listagem de vagas disponíveis para o candidato", description = "Função responsável por listar todas as vagas disponíveis baseadas no filtro")
     @ApiResponses({
-        @ApiResponse(responseCode = "200", content = {
-            @Content(
-                array = @ArraySchema(schema = @Schema(implementation = JobEntity.class))
-            )
-        })
+            @ApiResponse(responseCode = "200", content = {
+                    @Content(array = @ArraySchema(schema = @Schema(implementation = JobEntity.class)))
+            })
     })
 
     @SecurityRequirement(name = "jwt_auth")
