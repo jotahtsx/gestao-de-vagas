@@ -1,3 +1,7 @@
+com/jotahdev/jobmanagement/Validations/Validators/PasswordValidator.class
+com/jotahdev/jobmanagement/Validations/Annotations/ValidPassword.class
 com/jotahdev/jobmanagement/modules/Candidate/Entities/CandidateEntity.class
+com/jotahdev/jobmanagement/Exceptions/ErrorMessageDTO.class
 com/jotahdev/jobmanagement/JobManagement.class
+com/jotahdev/jobmanagement/Exceptions/ExceptionHandlerController.class
 com/jotahdev/jobmanagement/modules/Candidate/Controllers/CandidateController.class
