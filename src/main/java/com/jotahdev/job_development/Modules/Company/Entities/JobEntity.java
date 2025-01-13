@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,15 +26,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class JobEntity {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Schema(example = "Estamos buscando um Desenvolvedor Júnior com conhecimento básico em Java e Spring Boot. Responsável por desenvolver e dar manutenção em aplicações web, colaborar com a equipe de desenvolvimento e aprender novas tecnologias. Não é necessário experiência prévia, mas é desejável conhecimento em Git e APIs REST")
     private String description;
+
+    @Schema(example = "GymPass, Vale-transporte, Academia, Plano de saúde, Home office 2x por semana")
     private String benefits;
 
     @NotBlank(message = "O nível não pode ser vazio. Por favor, forneça um nível válido.")
+    @Schema(example = "JUNIOR")
     private String level;
 
     @ManyToOne()
