@@ -1,1 +1,3 @@
-/home/jotahdev/Development/job-management/src/main/java/com/jotahdev/jobmanagement/Application.java
+/home/jotahdev/Development/job-management/src/main/java/com/jotahdev/jobmanagement/JobManagement.java
+/home/jotahdev/Development/job-management/src/main/java/com/jotahdev/jobmanagement/modules/Candidate/Entities/CandidateEntity.java
+/home/jotahdev/Development/job-management/src/main/java/com/jotahdev/jobmanagement/modules/Candidate/Controllers/CandidateController.java
